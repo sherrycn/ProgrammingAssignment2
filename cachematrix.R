@@ -14,6 +14,27 @@ makeCacheMatrix <- function(x = matrix()) {
     x <<- y
     i <<-NULL
   }
+  ## solution 1
+  cacheSolve <- function(x, ...) {
+    ## Return a matrix that is the inverse of 'x'
+    inv <- x$getInverse()
+    if (!is.null(inv)) {
+      message("getting cached data")
+      return(inv)
+    }
+    mat <- x$get()
+    inv <- solve(mat, ...)
+    x$setInverse(inv)
+    inv
+  }
+  ##example
+  ## B<- matrix(c(1,2,3,4),2,2)
+  ## B1 <- makeCasheMatrix(B)
+  ## casheSolve(B1) inverse returned after compution 
+  ## cacheSolve(B1) getting cached data
+  ##
+  
+  ## solution 2
   get <- function() x
   setinverse <- function(inverse) i <<- solve(x)#calculate the inverse
   getinverse <- function() i
@@ -35,7 +56,9 @@ makeCacheMatrix <- function(x = matrix()) {
 #     [,1] [,2]
 #[1,]   -2  1.5
 #[2,]    1 -0.5
-###I've researched online and found the above solution is the most straightforward approach.
+
+
+###I've researched online and found the solution two is the most straightforward approach.
 #It also can be solved by using the cacheSolve function which computes the inverse of the "matrix
 
 
